@@ -1,5 +1,5 @@
 
-box(25,40,160,220);
+box(15,40,80,90);
 
 lidthickness = 3;
 wallthickness = 3+lidthickness;

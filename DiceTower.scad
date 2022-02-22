@@ -2,8 +2,8 @@ length = 170;
 width = 80;
 trayHeigth = 20;
 wallthickness= 5;
-towerheight = 130;
-diceOutHeight = 50;
+towerheight = 170;
+diceOutHeight = 40;
 
 edgelength = 40;
 
@@ -36,6 +36,19 @@ module tower(){
     //DiceOut
     translate([wallthickness,width-wallthickness*1.5,wallthickness])
     cube([width-wallthickness*2,wallthickness*2,diceOutHeight]);
+    
+         
+    //2nd edge
+    translate([wallthickness/2,width-edgelength*0.75,towerheight/2.5])
+    rotate([45,0,0])
+    cube([width-wallthickness,width-edgelength+wallthickness*2,wallthickness]);
+    
+    //1st edge
+    translate([wallthickness/2,edgelength*0.55+wallthickness*2,towerheight-edgelength*1.1 ])
+    rotate([135,0,0])
+    cube([width-wallthickness,width-edgelength+20,wallthickness]);
+    
+        
     }
     
     //buttom edge
@@ -44,13 +57,16 @@ module tower(){
     cube([width,width-edgelength,wallthickness]);
     
     //2nd edge
-    translate([0,width-edgelength*0.75,towerheight/2.5])
-    rotate([45,0,0])
-    cube([width,width-edgelength,wallthickness]);
+    translate([width+5,0,0])
+    rotate([0,0,0])
+    cube([width-wallthickness,width-edgelength+20,wallthickness]);
     
-    //1st edge
-    translate([0,edgelength*0.55+wallthickness*2,towerheight-edgelength*1.1 ])
-    rotate([135,0,0])
-    cube([width,width-edgelength,wallthickness]);
-      
+     //2nd edge
+    translate([width+5,width,0])
+    rotate([0,0,0])
+    cube([width-wallthickness,width-edgelength+20,wallthickness]);
+    
+   
+   
+   
 }
