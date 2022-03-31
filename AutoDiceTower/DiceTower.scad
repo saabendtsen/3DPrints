@@ -1,8 +1,8 @@
 length = 170;
 width = 80;
-trayHeigth = 20;
+trayHeigth = 25;
 wallthickness= 5;
-towerheight = 170;
+towerheight = 150;
 diceOutHeight = 40;
 
 edgelength = 40;
@@ -37,14 +37,14 @@ module tower(){
     translate([wallthickness,width-wallthickness*1.5,wallthickness])
     cube([width-wallthickness*2,wallthickness*2,diceOutHeight]);
     
-         
+       
     //2nd edge
-    translate([wallthickness/2,width-edgelength*0.75,towerheight/2.5])
+    translate([wallthickness/2,width-edgelength+1.1,towerheight/3])
     rotate([45,0,0])
-    cube([width-wallthickness,width-edgelength+wallthickness*2,wallthickness]);
+    cube([width-wallthickness,width-edgelength+20,wallthickness]);
     
     //1st edge
-    translate([wallthickness/2,edgelength*0.55+wallthickness*2,towerheight-edgelength*1.1 ])
+    translate([wallthickness/2,edgelength+2.4,towerheight-edgelength*1.1 ])
     rotate([135,0,0])
     cube([width-wallthickness,width-edgelength+20,wallthickness]);
     
@@ -57,16 +57,26 @@ module tower(){
     cube([width,width-edgelength,wallthickness]);
     
     //2nd edge
+difference(){
     translate([width+5,0,0])
     rotate([0,0,0])
-    cube([width-wallthickness,width-edgelength+20,wallthickness]);
+    cube([width-wallthickness-0.4,width-edgelength+20,wallthickness-0.4]);
+    //90edge
+    translate([width+4.8,0,0])
+    rotate([45,0,0])
+    cube([width-wallthickness+2,wallthickness+2,wallthickness]);
+}
     
      //2nd edge
+difference(){
     translate([width+5,width,0])
     rotate([0,0,0])
-    cube([width-wallthickness,width-edgelength+20,wallthickness]);
-    
-   
+    cube([width-wallthickness-0.4,width-edgelength+20,wallthickness-0.4]);
+    //90edge
+    translate([width+4.8,width,0])
+    rotate([45,0,0])
+    cube([width-wallthickness+2,wallthickness+2,wallthickness]);
+}
    
    
 }
