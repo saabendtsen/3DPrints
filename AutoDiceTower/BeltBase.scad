@@ -2,10 +2,10 @@ width = 46;
 length = 200;
 wallthickness = 3;
 
-height = 220;
+height = 223.5;
 
 diameter = 55;
-circleCentercut = 4.1;
+circleCentercut = 4.8;
 motorwidth = 42.5;
 motorlength = 39.5;
 motorlengthWaxel = 63.4;
