@@ -4,7 +4,7 @@
 
 int Step = 5;
 int Dir  = 4;
-float dicesteps = 43.25;
+float dicesteps = 28.70;
 int beltspeed = 5;
 int diceOrderStatus = 0;
 String dieId[] = {"die1", "die2", "die3", "die4", "die5", "die6"};
