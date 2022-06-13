@@ -4,7 +4,7 @@
 
 int Step = 5;
 int Dir  = 4;
-int dicesteps = 50;
+float dicesteps = 28.70;
 int beltspeed = 5;
 int diceOrderStatus = 0;
 String dieId[] = {"die1", "die2", "die3", "die4", "die5", "die6"};
@@ -26,83 +26,24 @@ void handleRoot() {
  \nhtml,body{\t\nwidth:100%\;\nheight:100%\;\nmargin:0}\n*{box-sizing:border-box}\n.colorAll{\n\tbackground-color:#90ee90}\n.colorBtn{\n\tbackground-color:#add8e6}\n.angleButtdon,a{\n\tfont-size:30px\;\nborder:1px solid #ccc\;\ndisplay:table-caption\;\npadding:7px 10px\;\ntext-decoration:none\;\ncursor:pointer\;\npadding:5px 6px 7px 10px}a{\n\tdisplay:block}\n.btn{\n\tmargin:5px\;\nborder:none\;\ndisplay:inline-block\;\nvertical-align:middle\;\ntext-align:center\;\nwhite-space:nowrap}\n";
 
   HTML += "</style>\n\n</head>\n\n<body>\n<h1 align=center>DiceTower Controller</h1>\n";
-
-  if (diceOrderStatus == 0) {
-    HTML += "\n\t<h2 align=center><span style=\"background-color: #FFFF00\">Order Some Dice</span></h2>\n";
+  
+  int k = 0;
+  for ( int j = 1; j <= 6; j++) {
+    if (diceOrderStatus == j) {
+      HTML += "\t<div align=center class=\"btn\">\n\t\t<a class=\"angleButton\" style=\"background-color:#f56464\"  href=\"/dice?";
+      HTML += dieId[k];
+      HTML += "=ordered\">";
+      HTML += buttonTitle[k];
+    } else {
+      HTML += "\t<div class=\"btn\">\n\t\t<a class=\"angleButton \" style=\"background-color:#90ee90\"  href=\"/dice?";
+      HTML += dieId[k];
+      HTML += "=ordered\">";
+      HTML += buttonTitle[k];
+    }
+    HTML += "</a>\t\n\t</div>\n\n";
+    k++;
   }
-
   HTML += "\t<div align=center>\n\t\t";
-  if (diceOrderStatus == 1) {
-    HTML += "\t<div align=center class=\"btn\">\n\t\t<a class=\"angleButton\" style=\"background-color:#f56464\"  href=\"/dice?";
-    HTML += dieId[0];
-    HTML += "=ordered\">";
-    HTML += buttonTitle[0];
-  } else {
-    HTML += "\t<div class=\"btn\">\n\t\t<a class=\"angleButton \" style=\"background-color:#90ee90\"  href=\"/dice?";
-    HTML += dieId[0];
-    HTML += "=ordered\">";
-    HTML += buttonTitle[0];
-  }
-  HTML += "</a>\t\n\t</div>\n\n";
-  if (diceOrderStatus == 2) {
-    HTML += "\t<div class=\"btn\">\n\t\t<a class=\"angleButton\" style=\"background-color:#f56464\"  href=\"/dice?";
-    HTML += dieId[1];
-    HTML += "=ordered\">";
-    HTML += buttonTitle[1];
-  } else {
-    HTML += "\t<div  class=\"btn\">\n\t\t<a class=\"angleButton \" style=\"background-color:#90ee90\"  href=\"/dice?";
-    HTML += dieId[1];
-    HTML += "=ordered\">";
-    HTML += buttonTitle[1];
-  }
-  HTML += "</a>\t\n\t</div>\n\n";
-  if (diceOrderStatus == 3) {
-    HTML += "\t<div class=\"btn\">\n\t\t<a class=\"angleButton\" style=\"background-color:#f56464\"  href=\"/dice?";
-    HTML += dieId[2];
-    HTML += "=ordered\">";
-    HTML += buttonTitle[2];
-  } else {
-    HTML += "\t<div class=\"btn\">\n\t\t<a class=\"angleButton \" style=\"background-color:#90ee90\"  href=\"/dice?";
-    HTML += dieId[2];
-    HTML += "=ordered\">";
-    HTML += buttonTitle[2];
-  }
-  HTML += "</a>\t\n\t</div>\n\n";
-  if (diceOrderStatus == 4) {
-    HTML += "\t<div class=\"btn\">\n\t\t<a class=\"angleButton\" style=\"background-color:#f56464\"  href=\"/dice?";
-    HTML += dieId[3];
-    HTML += "=ordered\">";
-    HTML += buttonTitle[3];
-  } else {
-    HTML += "\t<div class=\"btn\">\n\t\t<a class=\"angleButton \" style=\"background-color:#90ee90\"  href=\"/dice?";
-    HTML += dieId[3];
-    HTML += "=ordered\">";
-    HTML += buttonTitle[3];
-  }
-  HTML += "</a>\t\n\t</div>\n\n";
-  if (diceOrderStatus == 5) {
-    HTML += "\t<div class=\"btn\">\n\t\t<a class=\"angleButton\" style=\"background-color:#f56464\"  href=\"/dice?";
-    HTML += dieId[4];
-    HTML += "=ordered\">";
-    HTML += buttonTitle[4];
-  } else {
-    HTML += "\t<div class=\"btn\">\n\t\t<a class=\"angleButton \" style=\"background-color:#90ee90\"  href=\"/dice?";
-    HTML += dieId[4];
-    HTML += "=ordered\">";
-    HTML += buttonTitle[4];
-  }
-  HTML += "</a>\t\n\t</div>\n\n";
-  if (diceOrderStatus == 6) {
-    HTML += "\t<div class=\"btn\">\n\t\t<a class=\"angleButton\" style=\"background-color:#f56464\"  href=\"/dice?";
-    HTML += dieId[5];
-    HTML += "=ordered\">";
-    HTML += buttonTitle[5];
-  } else {
-    HTML += "\t<div class=\"btn\">\n\t\t<a class=\"angleButton \" style=\"background-color:#90ee90\"  href=\"/dice?";
-    HTML += dieId[5];
-    HTML += "=ordered\">";
-    HTML += buttonTitle[5];
-  }
   HTML += "</div>";
   HTML += "</a>\t\n\t</div>\n\n";
 
@@ -145,12 +86,8 @@ void setup() {
 void loop(void) {
   server.handleClient();
   int i;
-  if (diceOrderStatus == 1) {
-    Serial.print(diceOrderStatus);
-    Serial.print(" Die");
-    Serial.println("");
     digitalWrite(Dir, LOW); //Rotate direction
-    for ( i = 1; i <= (dicesteps); i++) {
+    for ( i = 1; i <= (dicesteps * diceOrderStatus); i++) {
       digitalWrite(Step, HIGH);
       delay(beltspeed);
       digitalWrite(Step, LOW);
@@ -158,72 +95,6 @@ void loop(void) {
     }
     diceOrderStatus = 0;
     handleRoot();
-  } else if (diceOrderStatus == 2) {
-    Serial.print(diceOrderStatus);
-    Serial.print(" Die");
-    Serial.println("");
-    digitalWrite(Dir, LOW); //Rotate direction
-    for ( i = 1; i <= (dicesteps * 2); i++) {
-      digitalWrite(Step, HIGH);
-      delay(beltspeed);
-      digitalWrite(Step, LOW);
-      delay(beltspeed);
-    }
-    diceOrderStatus = 0;
-    handleRoot();
-  } else if (diceOrderStatus == 3) {
-    Serial.print(diceOrderStatus);
-    Serial.print(" Die");
-    Serial.println("");
-    digitalWrite(Dir, LOW); //Rotate direction
-    for ( i = 1; i <= (dicesteps * 3); i++) {
-      digitalWrite(Step, HIGH);
-      delay(beltspeed);
-      digitalWrite(Step, LOW);
-      delay(beltspeed);
-    }
-    diceOrderStatus = 0;
-    handleRoot();
-  } else if (diceOrderStatus == 4) {
-    Serial.print(diceOrderStatus);
-    Serial.print(" Die");
-    Serial.println("");
-    digitalWrite(Dir, LOW); //Rotate direction
-    for ( i = 1; i <= (dicesteps * 4); i++) {
-      digitalWrite(Step, HIGH);
-      delay(beltspeed);
-      digitalWrite(Step, LOW);
-      delay(beltspeed);
-    }
-    diceOrderStatus = 0;
-    handleRoot();
-  } else if (diceOrderStatus == 5) {
-    Serial.print(diceOrderStatus);
-    Serial.print(" Die");
-    Serial.println("");
-    digitalWrite(Dir, LOW); //Rotate direction
-    for ( i = 1; i <= (dicesteps * 5); i++) {
-      digitalWrite(Step, HIGH);
-      delay(beltspeed);
-      digitalWrite(Step, LOW);
-      delay(beltspeed);
-    }
-    diceOrderStatus = 0;
-    handleRoot();
-  } else if (diceOrderStatus == 6) {
-    Serial.print(diceOrderStatus);
-    Serial.print(" Die");
-    Serial.println("");
-    digitalWrite(Dir, LOW); //Rotate direction
-    for ( i = 1; i <= (dicesteps * 6); i++) {
-      digitalWrite(Step, HIGH);
-      delay(beltspeed);
-      digitalWrite(Step, LOW);
-      delay(beltspeed);
-    }
-    diceOrderStatus = 0;
-    handleRoot();
-  }
   delay(1);
 }
 
